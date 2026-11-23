@@ -1,0 +1,842 @@
+@import "tailwindcss";
+
+:root {
+  --bg-outer: #04050a;
+  --bg-card: rgba(18, 24, 44, 0.9);
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-gold: rgba(250, 204, 21, 0.42);
+  --gold-light: #fef0c7;
+  --gold: #eab308;
+  --cyan: #22d3ee;
+  --emerald: #10b981;
+  --crimson: #f43f5e;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--bg-outer);
+  color: var(--text-main);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+.font-display {
+  font-family: 'Cinzel', Georgia, serif;
+}
+
+button {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* Living character animations inside anime cards */
+.hero-alive {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: heroAlive 3.2s ease-in-out infinite;
+}
+
+@keyframes heroAlive {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-2.4px) scale(1.014);
+  }
+}
+
+.hero-blink {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: eyeBlink 4.6s infinite;
+}
+
+@keyframes eyeBlink {
+  0%, 92%, 100% {
+    transform: scaleY(1);
+  }
+  96% {
+    transform: scaleY(0.08);
+  }
+}
+
+.hero-fx-float {
+  animation: fxFloat 2.8s ease-in-out infinite;
+}
+
+@keyframes fxFloat {
+  0%, 100% {
+    transform: translateY(0px);
+    opacity: 0.86;
+  }
+  50% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+@keyframes floatHg {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float-hg {
+  animation: floatHg 3.2s ease-in-out infinite;
+}
+
+@keyframes shakeHit {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  75% {
+    transform: translateX(5px);
+  }
+}
+
+.animate-hit-shake {
+  animation: shakeHit 0.28s ease;
+}
+
+@keyframes floatDmg {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -24px) scale(0.95);
+  }
+}
+
+.animate-float-dmg {
+  animation: floatDmg 0.85s ease forwards;
+}
+
+/* Custom thin dark scrollbar */
+.hub-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(250, 204, 21, 0.25) transparent;
+}
+
+.hub-scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.hub-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.hub-scroll::-webkit-scrollbar-thumb {
+  background: rgba(250, 204, 21, 0.25);
+  border-radius: 999px;
+}
+
+@keyframes viewEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(7px) scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-view-enter {
+  animation: viewEnter 0.24s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes summonCardPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.76) translateY(18px);
+  }
+  65% {
+    opacity: 1;
+    transform: scale(1.03) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-summon-pop {
+  animation: summonCardPop 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Living 3D anime CGI character breathing motion */
+@keyframes heroCgiAlive {
+  0%, 100% {
+    transform: scale(1.03) translateY(0px);
+  }
+  50% {
+    transform: scale(1.062) translateY(-2.5px);
+  }
+}
+
+.animate-hero-cgi-alive {
+  animation: heroCgiAlive 4.2s ease-in-out infinite;
+  transform-origin: center 22%;
+}
+
+/* Slow cinematic Ken Burns drift on the Senda del Tiempo menu sanctuary backdrop */
+@keyframes sanctuaryDrift {
+  0%, 100% {
+    transform: scale(1.02) translate3d(0px, 0px, 0);
+  }
+  50% {
+    transform: scale(1.07) translate3d(0px, -10px, 0);
+  }
+}
+
+.animate-sanctuary-drift {
+  animation: sanctuaryDrift 20s ease-in-out infinite;
+}
+
+/* Specular light sweep across animated main menu banners */
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-140%) skewX(-20deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.48;
+  }
+  45% {
+    transform: translateX(240%) skewX(-20deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(240%) skewX(-20deg);
+    opacity: 0;
+  }
+}
+
+.animate-shimmer-sweep {
+  animation: shimmerSweep 5.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes compassSpinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-compass-slow {
+  animation: compassSpinSlow 26s linear infinite;
+}
+
+@keyframes menuItemEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-menu-item {
+  animation: menuItemEnter 0.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Crisp HD anime portrait rendering with subtle living motion */
+.hero-hd-portrait {
+  image-rendering: auto;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  filter: contrast(1.04) saturate(1.07);
+}
+
+@keyframes heroSubtleBreath {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1.015);
+  }
+  50% {
+    transform: translate3d(0, -1.6px, 0) scale(1.035);
+  }
+}
+
+.animate-hero-breath {
+  animation: heroSubtleBreath 4.4s ease-in-out infinite;
+  transform-origin: center 18%;
+  will-change: transform;
+}
+
+/* Combat card lunge animations */
+@keyframes cardLungeUp {
+  0% { transform: translateY(0) scale(1); }
+  35% { transform: translateY(-20px) scale(1.07); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes cardLungeDown {
+  0% { transform: translateY(0) scale(1); }
+  35% { transform: translateY(20px) scale(1.07); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+.animate-lunge-up {
+  animation: cardLungeUp 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 15;
+}
+
+.animate-lunge-down {
+  animation: cardLungeDown 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 15;
+}
+
+/* Basic & Bronze/Silver combat arena VFX */
+@keyframes basicSlashSweep {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) rotate(-22deg);
+  }
+  28% {
+    opacity: 1;
+    transform: scale(1.12) rotate(-8deg);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.45) rotate(8deg);
+  }
+}
+
+.animate-basic-slash {
+  animation: basicSlashSweep 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes specialWaveBurst {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.55);
+  }
+}
+
+.animate-special-wave {
+  animation: specialWaveBurst 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Gold Hero Special Cut-In: Character emerges out of the golden card! */
+@keyframes goldUltBackdrop {
+  0% { opacity: 0; }
+  14% { opacity: 1; }
+  84% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.animate-gold-ult-bg {
+  animation: goldUltBackdrop 1.45s ease-out forwards;
+}
+
+@keyframes goldCardBasePop {
+  0% {
+    opacity: 0;
+    transform: perspective(600px) rotateX(48deg) translateY(55px) scale(0.72);
+  }
+  25% {
+    opacity: 1;
+    transform: perspective(600px) rotateX(22deg) translateY(12px) scale(1);
+  }
+  80% {
+    opacity: 1;
+    transform: perspective(600px) rotateX(18deg) translateY(10px) scale(1.02);
+  }
+  100% {
+    opacity: 0;
+    transform: perspective(600px) rotateX(34deg) translateY(34px) scale(0.9);
+  }
+}
+
+.animate-gold-card-base {
+  animation: goldCardBasePop 1.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes goldHeroEmerge {
+  0% {
+    opacity: 0;
+    transform: translateY(68px) scale(0.56);
+    filter: brightness(2.1);
+  }
+  24% {
+    opacity: 1;
+    transform: translateY(-16px) scale(1.16);
+    filter: brightness(1.15);
+  }
+  58% {
+    opacity: 1;
+    transform: translateY(-22px) scale(1.22);
+    filter: brightness(1.05);
+  }
+  84% {
+    opacity: 1;
+    transform: translateY(-28px) scale(1.26);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-42px) scale(1.32);
+  }
+}
+
+.animate-gold-hero-emerge {
+  animation: goldHeroEmerge 1.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes katanaCleaveBeam {
+  0% {
+    opacity: 0;
+    transform: translate(-120%, 60%) rotate(-24deg) scaleX(0.3);
+  }
+  30% {
+    opacity: 1;
+    transform: translate(0%, 0%) rotate(-24deg) scaleX(1.3);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(90%, -55%) rotate(-24deg) scaleX(1.6);
+  }
+}
+
+.animate-katana-cleave {
+  animation: katanaCleaveBeam 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+}
+
+@keyframes solarOrbDrop {
+  0% {
+    opacity: 0;
+    transform: scale(0.25) translateY(-60px);
+  }
+  42% {
+    opacity: 1;
+    transform: scale(1.18) translateY(0px);
+  }
+  75% {
+    opacity: 1;
+    transform: scale(1.32) translateY(8px);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.65) translateY(16px);
+  }
+}
+
+.animate-solar-orb {
+  animation: solarOrbDrop 1.25s cubic-bezier(0.16, 1, 0.3, 1) 0.16s both;
+}
+
+@keyframes pyramidRise {
+  0% {
+    opacity: 0;
+    transform: translateY(70px) scale(0.75);
+  }
+  38% {
+    opacity: 1;
+    transform: translateY(0px) scale(1.05);
+  }
+  85% {
+    opacity: 0.95;
+    transform: translateY(-4px) scale(1.08);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-12px) scale(1.12);
+  }
+}
+
+.animate-pyramid-rise {
+  animation: pyramidRise 1.28s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+@keyframes wingsUnfold {
+  0% {
+    opacity: 0;
+    transform: scaleX(0.15) scaleY(0.65);
+  }
+  35% {
+    opacity: 1;
+    transform: scaleX(1.08) scaleY(1.04);
+  }
+  85% {
+    opacity: 1;
+    transform: scaleX(1.14) scaleY(1.08);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1.25) scaleY(1.12);
+  }
+}
+
+.animate-wings-unfold {
+  animation: wingsUnfold 1.28s cubic-bezier(0.16, 1, 0.3, 1) 0.14s both;
+}
+
+@keyframes ultTitleSlide {
+  0% {
+    opacity: 0;
+    transform: translateY(16px) scale(0.92);
+  }
+  25% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+  82% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+}
+
+.animate-ult-title {
+  animation: ultTitleSlide 1.38s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes goldRevealBurst {
+  0% {
+    opacity: 0;
+    transform: scale(0.35);
+  }
+  30% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+}
+
+.animate-gold-reveal-burst {
+  animation: goldRevealBurst 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes goldRevealRingSpin {
+  from {
+    transform: rotate(0deg) scale(0.95);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.04);
+  }
+  to {
+    transform: rotate(360deg) scale(0.95);
+  }
+}
+
+.animate-gold-ring-spin {
+  animation: goldRevealRingSpin 7s linear infinite;
+}
+
+@keyframes dupStampPop {
+  0% {
+    opacity: 0;
+    transform: scale(1.75) rotate(-10deg);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(0.94) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.animate-dup-stamp {
+  animation: dupStampPop 0.38s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+/* Dynamic Combat Arena Impact Shake, Parallax Drift & Hit Flash */
+@keyframes arenaImpactShake {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  18% {
+    transform: translate3d(-5px, 3px, 0);
+  }
+  36% {
+    transform: translate3d(5px, -3px, 0);
+  }
+  56% {
+    transform: translate3d(-3px, -2px, 0);
+  }
+  78% {
+    transform: translate3d(2px, 2px, 0);
+  }
+}
+
+.animate-arena-impact {
+  animation: arenaImpactShake 0.34s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes arenaBgDrift {
+  0%, 100% {
+    transform: scale(1.04) translate3d(0px, 0px, 0);
+  }
+  50% {
+    transform: scale(1.085) translate3d(0px, -8px, 0);
+  }
+}
+
+.animate-arena-bg-drift {
+  animation: arenaBgDrift 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes hitFlashBurst {
+  0% {
+    opacity: 0.72;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-hit-flash {
+  animation: hitFlashBurst 0.34s ease-out forwards;
+}
+
+@keyframes specialReadyGlow {
+  0%, 100% {
+    box-shadow: 0 0 14px rgba(250, 204, 21, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(251, 191, 36, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  }
+}
+
+.animate-special-ready {
+  animation: specialReadyGlow 2.1s ease-in-out infinite;
+}
+
+@keyframes welcomeBurst {
+  0% {
+    opacity: 0;
+    transform: scale(0.55) rotate(-12deg);
+  }
+  55% {
+    opacity: 0.95;
+    transform: scale(1.08) rotate(6deg);
+  }
+  100% {
+    opacity: 0.72;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.animate-welcome-burst {
+  animation: welcomeBurst 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes welcomeRewardPop {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.8);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-welcome-pop {
+  opacity: 0;
+  animation: welcomeRewardPop 0.52s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes welcomeCardFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-welcome-float {
+  animation: welcomeCardFloat 3.2s ease-in-out infinite;
+}
+
+/* Live2D-style Animated Anime Portrait Engine */
+@keyframes animeLiveMotion {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0) scale(1.035) rotate(0deg);
+  }
+  25% {
+    transform: translate3d(0.8px, -2.2px, 0) scale(1.055) rotate(0.45deg);
+  }
+  50% {
+    transform: translate3d(0px, -3.2px, 0) scale(1.065) rotate(0deg);
+  }
+  75% {
+    transform: translate3d(-0.8px, -1.8px, 0) scale(1.05) rotate(-0.45deg);
+  }
+}
+
+.anime-live-portrait {
+  image-rendering: auto;
+  filter: contrast(1.05) saturate(1.12);
+  transform-origin: 50% 72%;
+  animation: animeLiveMotion 4.4s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes animeSheenSweep {
+  0%, 62% {
+    transform: translate3d(-150%, 0, 0) skewX(-22deg);
+    opacity: 0;
+  }
+  72% {
+    opacity: 0.42;
+  }
+  88% {
+    opacity: 0.24;
+  }
+  100% {
+    transform: translate3d(190%, 0, 0) skewX(-22deg);
+    opacity: 0;
+  }
+}
+
+.anime-live-sheen {
+  animation: animeSheenSweep 5.6s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes animeMoteFloat {
+  0% {
+    transform: translate3d(0, 12px, 0) scale(0.6);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.9;
+  }
+  75% {
+    opacity: 0.65;
+  }
+  100% {
+    transform: translate3d(6px, -26px, 0) scale(1.1);
+    opacity: 0;
+  }
+}
+
+.anime-live-mote {
+  animation: animeMoteFloat 3.6s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes animeAuraBreathe {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.72;
+    transform: scale(1.04);
+  }
+}
+
+.anime-aura-breathe {
+  animation: animeAuraBreathe 3.2s ease-in-out infinite;
+}
+
+/* Title Screen Key Art & Logo Cinematic Animations */
+@keyframes titleKeyartDrift {
+  0%, 100% {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.1) translate3d(0, -10px, 0);
+  }
+}
+
+.animate-title-keyart {
+  animation: titleKeyartDrift 18s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes titleCtaPulse {
+  0%, 100% {
+    box-shadow: 0 0 18px rgba(245, 198, 72, 0.35), 0 10px 28px rgba(0, 0, 0, 0.55);
+    transform: translateY(0px);
+  }
+  50% {
+    box-shadow: 0 0 34px rgba(251, 211, 102, 0.72), 0 14px 34px rgba(0, 0, 0, 0.65);
+    transform: translateY(-2px);
+  }
+}
+
+.animate-title-cta {
+  animation: titleCtaPulse 2.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-cgi-alive,
+  .animate-hero-breath,
+  .anime-live-portrait,
+  .anime-live-sheen,
+  .anime-live-mote,
+  .anime-aura-breathe,
+  .animate-title-keyart,
+  .animate-title-cta,
+  .animate-sanctuary-drift,
+  .animate-arena-bg-drift,
+  .animate-special-ready,
+  .animate-welcome-burst,
+  .animate-welcome-pop,
+  .animate-welcome-float,
+  .animate-shimmer-sweep,
+  .animate-compass-slow,
+  .animate-gold-ring-spin,
+  .hero-alive,
+  .hero-blink,
+  .hero-fx-float,
+  .animate-float-hg {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+}
+
+
+

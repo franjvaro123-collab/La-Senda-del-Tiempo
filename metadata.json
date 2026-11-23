@@ -1,0 +1,6 @@
+{
+  "name": "Senda del Tiempo",
+  "description": "RPG estratégico 4 vs 4 por turnos. Colecciona 29 héroes de distintas eras, evoluciona tu escuadrón y purifica la Senda del Tiempo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
